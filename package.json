@@ -1,0 +1,56 @@
+{
+  "name": "remove-anything",
+  "sideEffects": false,
+  "version": "0.0.0",
+  "description": "Remove any prop (eg. `undefined`) from an object",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "typings": "types/index.d.ts",
+  "scripts": {
+    "test": "ava",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "rollup": "rollup -c build.js",
+    "build": "npm run lint && npm run test && npm run rollup"
+  },
+  "dependencies": {
+    "is-what": "^3.11.3"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.6.1",
+    "@typescript-eslint/parser": "^4.6.1",
+    "ava": "^3.13.0",
+    "eslint": "^7.12.1",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-tree-shaking": "^1.8.0",
+    "rollup": "^2.33.1",
+    "rollup-plugin-typescript2": "^0.29.0",
+    "ts-node": "^9.0.0",
+    "tsconfig-paths": "^3.9.0",
+    "typescript": "^4.0.5"
+  },
+  "keywords": [
+    "remove",
+    "remove-prop",
+    "remove-anything",
+    "remove-undefined"
+  ],
+  "author": "Luca Ban - Mesqueeb",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mesqueeb/remove-anything/issues"
+  },
+  "homepage": "https://github.com/mesqueeb/remove-anything#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mesqueeb/remove-anything.git"
+  },
+  "ava": {
+    "extensions": [
+      "ts"
+    ],
+    "require": [
+      "tsconfig-paths/register",
+      "ts-node/register"
+    ]
+  }
+}
