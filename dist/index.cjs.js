@@ -4,7 +4,9 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 var isWhat = require('is-what');
 
-// internal more relaxed implementation
+/**
+ * Recursively remove props from an object, if the prop's value matches any of those in `valuesToRemove`
+ */
 function removeProps(payload, valuesToRemove) {
     if (valuesToRemove === void 0) { valuesToRemove = []; }
     if (!isWhat.isPlainObject(payload) || !isWhat.isFullArray(valuesToRemove))
@@ -17,7 +19,9 @@ function removeProps(payload, valuesToRemove) {
         return carry;
     }, {});
 }
-// internal more relaxed implementation
+/**
+ * Recursively remove props from an object, if the prop's value matches `valueToRemove`
+ */
 function removeProp(payload, valueToRemove) {
     return removeProps(payload, [valueToRemove]);
 }

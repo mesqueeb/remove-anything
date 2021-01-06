@@ -2,12 +2,14 @@ import { isFullArray, isPlainObject } from 'is-what'
 
 type PlainObject = Record<string, any>
 
-// function overload for external use
+// function overload for external use & type accuracy
 export function removeProps<Payload extends PlainObject> (
   payload: Payload,
   valuesToRemove: any[]
 ): Payload
-// internal more relaxed implementation
+/**
+ * Recursively remove props from an object, if the prop's value matches any of those in `valuesToRemove`
+ */
 export function removeProps (
   payload: PlainObject,
   valuesToRemove: any[] = []
@@ -20,12 +22,14 @@ export function removeProps (
   }, {} as PlainObject)
 }
 
-// function overload for external use
+// function overload for external use & type accuracy
 export function removeProp<Payload extends PlainObject> (
   payload: Payload,
   valueToRemove: any
 ): Payload
-// internal more relaxed implementation
+/**
+ * Recursively remove props from an object, if the prop's value matches `valueToRemove`
+ */
 export function removeProp (
   payload: PlainObject,
   valueToRemove: any
