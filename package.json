@@ -1,7 +1,7 @@
 {
   "name": "remove-anything",
   "sideEffects": false,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Remove any prop (eg. `undefined`) from an object",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
