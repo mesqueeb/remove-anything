@@ -1,5 +1,12 @@
 # Remove Anything ✂️
 
+<a href="https://www.npmjs.com/package/remove-anything"><img src="https://img.shields.io/npm/v/remove-anything.svg" alt="Total Downloads"></a>
+<a href="https://www.npmjs.com/package/remove-anything"><img src="https://img.shields.io/npm/dw/remove-anything.svg" alt="Latest Stable Version"></a>
+
+```
+npm i remove-anything
+```
+
 Removes props (eg. undefined) from an object
 
 An optimised way to remove any prop (eg. `undefined`) from an object. A small and simple integration.
