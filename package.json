@@ -3,9 +3,16 @@
   "sideEffects": false,
   "version": "0.0.2",
   "description": "Remove any prop (eg. `undefined`) from an object",
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.esm.js",
-  "types": "types/index.d.ts",
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/index.esm.js",
+  "types": "./types/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs.js",
+      "import": "./dist/index.esm.js",
+      "types": "./types/index.d.ts"
+    }
+  },
   "scripts": {
     "test": "ava",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
