@@ -25,6 +25,24 @@ function removeProps(payload, valuesToRemove) {
 function removeProp(payload, valueToRemove) {
     return removeProps(payload, [valueToRemove]);
 }
+/**
+ * Recursively removes empty objects from an object
+ */
+function removeEmptyObjects(payload) {
+    if (!isWhat.isPlainObject(payload))
+        return payload;
+    return Object.entries(payload).reduce(function (carry, _a) {
+        var key = _a[0], value = _a[1];
+        if (isWhat.isEmptyObject(value))
+            return carry;
+        var newVal = removeEmptyObjects(value);
+        if (isWhat.isEmptyObject(newVal))
+            return carry;
+        carry[key] = newVal;
+        return carry;
+    }, {});
+}
 
+exports.removeEmptyObjects = removeEmptyObjects;
 exports.removeProp = removeProp;
 exports.removeProps = removeProps;

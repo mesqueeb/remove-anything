@@ -1,4 +1,4 @@
-import { isPlainObject, isFullArray } from 'is-what';
+import { isPlainObject, isFullArray, isEmptyObject } from 'is-what';
 
 /**
  * Recursively remove props from an object, if the prop's value matches any of those in `valuesToRemove`
@@ -21,5 +21,22 @@ function removeProps(payload, valuesToRemove) {
 function removeProp(payload, valueToRemove) {
     return removeProps(payload, [valueToRemove]);
 }
+/**
+ * Recursively removes empty objects from an object
+ */
+function removeEmptyObjects(payload) {
+    if (!isPlainObject(payload))
+        return payload;
+    return Object.entries(payload).reduce(function (carry, _a) {
+        var key = _a[0], value = _a[1];
+        if (isEmptyObject(value))
+            return carry;
+        var newVal = removeEmptyObjects(value);
+        if (isEmptyObject(newVal))
+            return carry;
+        carry[key] = newVal;
+        return carry;
+    }, {});
+}
 
-export { removeProp, removeProps };
+export { removeEmptyObjects, removeProp, removeProps };
