@@ -7,18 +7,16 @@ var isWhat = require('is-what');
 /**
  * Recursively remove props from an object, if the prop's value matches any of those in `valuesToRemove`
  */
-function removeProps(payload, valuesToRemove) {
-    if (valuesToRemove === void 0) { valuesToRemove = []; }
+function removeProps(payload, valuesToRemove = []) {
     if (!isWhat.isPlainObject(payload) || !isWhat.isFullArray(valuesToRemove))
         return payload;
-    var removeEmptyObjects = !!valuesToRemove.find(function (val) { return isWhat.isEmptyObject(val); });
-    return Object.entries(payload).reduce(function (carry, _a) {
-        var key = _a[0], value = _a[1];
+    const removeEmptyObjects = !!valuesToRemove.find((val) => isWhat.isEmptyObject(val));
+    return Object.entries(payload).reduce((carry, [key, value]) => {
         if (removeEmptyObjects && isWhat.isEmptyObject(value))
             return carry;
         if (valuesToRemove.includes(value))
             return carry;
-        var newVal = removeProps(value, valuesToRemove);
+        const newVal = removeProps(value, valuesToRemove);
         if (removeEmptyObjects && isWhat.isEmptyObject(newVal))
             return carry;
         carry[key] = newVal;
