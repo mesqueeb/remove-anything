@@ -36,7 +36,7 @@ const payload = { a: 1, b: undefined }
 removeProp(payload, 1, undefined)
 
 // returns
-// { a: 1 }
+// {}
 ```
 
 ### Remove Empty Objects and Arrays
