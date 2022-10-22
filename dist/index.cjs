@@ -3,21 +3,22 @@
 var isWhat = require('is-what');
 
 /**
- * Recursively remove props from an object, if the prop's value matches any of those in `valuesToRemove`
+ * Recursively remove props from an object, if the prop's value matches `valueToRemove`
  */
-function removeProps(payload, valuesToRemove = []) {
-    if (!isWhat.isPlainObject(payload) || !isWhat.isFullArray(valuesToRemove))
+function removeProp(payload, valueToRemove, ...valuesToRemove) {
+    if (!isWhat.isPlainObject(payload))
         return payload;
-    const removeEmptyObjects = !!valuesToRemove.find((val) => isWhat.isEmptyObject(val));
-    const removeEmptyArrays = !!valuesToRemove.find((val) => isWhat.isEmptyArray(val));
+    const remove = [valueToRemove, ...valuesToRemove];
+    const removeEmptyObjects = !!remove.find((val) => isWhat.isEmptyObject(val));
+    const removeEmptyArrays = !!remove.find((val) => isWhat.isEmptyArray(val));
     return Object.entries(payload).reduce((carry, [key, value]) => {
         if (removeEmptyObjects && isWhat.isEmptyObject(value))
             return carry;
         if (removeEmptyArrays && isWhat.isEmptyArray(value))
             return carry;
-        if (valuesToRemove.includes(value))
+        if (remove.includes(value))
             return carry;
-        const newVal = removeProps(value, valuesToRemove);
+        const newVal = removeProp(value, remove[0], ...remove.slice(1));
         if (removeEmptyObjects && isWhat.isEmptyObject(newVal))
             return carry;
         if (removeEmptyArrays && isWhat.isEmptyArray(newVal))
@@ -27,11 +28,9 @@ function removeProps(payload, valuesToRemove = []) {
     }, {});
 }
 /**
- * Recursively remove props from an object, if the prop's value matches `valueToRemove`
+ * @deprecated use `removeProp` instead and pass multiple parameters
  */
-function removeProp(payload, valueToRemove) {
-    return removeProps(payload, [valueToRemove]);
-}
+const removeProps = (payload, valuesToRemove) => removeProp(payload, valuesToRemove[0], ...valuesToRemove);
 
 exports.removeProp = removeProp;
 exports.removeProps = removeProps;

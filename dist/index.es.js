@@ -1,21 +1,22 @@
-import { isPlainObject, isFullArray, isEmptyObject, isEmptyArray } from 'is-what';
+import { isPlainObject, isEmptyObject, isEmptyArray } from 'is-what';
 
 /**
- * Recursively remove props from an object, if the prop's value matches any of those in `valuesToRemove`
+ * Recursively remove props from an object, if the prop's value matches `valueToRemove`
  */
-function removeProps(payload, valuesToRemove = []) {
-    if (!isPlainObject(payload) || !isFullArray(valuesToRemove))
+function removeProp(payload, valueToRemove, ...valuesToRemove) {
+    if (!isPlainObject(payload))
         return payload;
-    const removeEmptyObjects = !!valuesToRemove.find((val) => isEmptyObject(val));
-    const removeEmptyArrays = !!valuesToRemove.find((val) => isEmptyArray(val));
+    const remove = [valueToRemove, ...valuesToRemove];
+    const removeEmptyObjects = !!remove.find((val) => isEmptyObject(val));
+    const removeEmptyArrays = !!remove.find((val) => isEmptyArray(val));
     return Object.entries(payload).reduce((carry, [key, value]) => {
         if (removeEmptyObjects && isEmptyObject(value))
             return carry;
         if (removeEmptyArrays && isEmptyArray(value))
             return carry;
-        if (valuesToRemove.includes(value))
+        if (remove.includes(value))
             return carry;
-        const newVal = removeProps(value, valuesToRemove);
+        const newVal = removeProp(value, remove[0], ...remove.slice(1));
         if (removeEmptyObjects && isEmptyObject(newVal))
             return carry;
         if (removeEmptyArrays && isEmptyArray(newVal))
@@ -25,10 +26,8 @@ function removeProps(payload, valuesToRemove = []) {
     }, {});
 }
 /**
- * Recursively remove props from an object, if the prop's value matches `valueToRemove`
+ * @deprecated use `removeProp` instead and pass multiple parameters
  */
-function removeProp(payload, valueToRemove) {
-    return removeProps(payload, [valueToRemove]);
-}
+const removeProps = (payload, valuesToRemove) => removeProp(payload, valuesToRemove[0], ...valuesToRemove);
 
 export { removeProp, removeProps };
