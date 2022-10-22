@@ -27,6 +27,17 @@ const no1 = removeProp(payload, 1)
 no1 // { b: undefined }
 ```
 
+### Remove multiple props
+
+You can keep on passing parameters to remove additional props
+
+```js
+const payload = { a: 1, b: undefined }
+removeProp(payload, 1, undefined)
+
+// returns
+// { a: 1 }
+```
 
 ### Remove Empty Objects and Arrays
 
@@ -47,4 +58,3 @@ removeProps(payload, {}, [])
 - [compare-anything 🛰](https://github.com/mesqueeb/compare-anything)
 - [flatten-anything 🏏](https://github.com/mesqueeb/flatten-anything)
 - [is-what 🙉](https://github.com/mesqueeb/is-what)
-

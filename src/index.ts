@@ -1,23 +1,26 @@
-import { isEmptyObject, isEmptyArray, isFullArray, isPlainObject } from 'is-what'
+import { isEmptyObject, isEmptyArray, isPlainObject } from 'is-what'
 
 /**
- * Recursively remove props from an object, if the prop's value matches any of those in `valuesToRemove`
+ * Recursively remove props from an object, if the prop's value matches `valueToRemove`
  */
-export function removeProps(
+export function removeProp(
   payload: Record<string, any>,
-  valuesToRemove: any[] = []
+  valueToRemove: any,
+  ...valuesToRemove: any[]
 ): Record<string, unknown> {
-  if (!isPlainObject(payload) || !isFullArray(valuesToRemove)) return payload
+  if (!isPlainObject(payload)) return payload
 
-  const removeEmptyObjects = !!valuesToRemove.find((val) => isEmptyObject(val))
-  const removeEmptyArrays = !!valuesToRemove.find((val) => isEmptyArray(val))
+  const remove = [valueToRemove, ...valuesToRemove]
+
+  const removeEmptyObjects = !!remove.find((val) => isEmptyObject(val))
+  const removeEmptyArrays = !!remove.find((val) => isEmptyArray(val))
 
   return Object.entries(payload).reduce<Record<string, any>>((carry, [key, value]) => {
     if (removeEmptyObjects && isEmptyObject(value)) return carry
     if (removeEmptyArrays && isEmptyArray(value)) return carry
-    if (valuesToRemove.includes(value)) return carry
+    if (remove.includes(value)) return carry
 
-    const newVal = removeProps(value, valuesToRemove)
+    const newVal = removeProp(value, remove[0], ...remove.slice(1))
     if (removeEmptyObjects && isEmptyObject(newVal)) return carry
     if (removeEmptyArrays && isEmptyArray(newVal)) return carry
 
@@ -26,14 +29,8 @@ export function removeProps(
   }, {})
 }
 
-// function overload for external use & type accuracy
-export function removeProp<Payload extends Record<string, any>>(
-  payload: Payload,
-  valueToRemove: any
-): Payload
 /**
- * Recursively remove props from an object, if the prop's value matches `valueToRemove`
+ * @deprecated use `removeProp` instead and pass multiple parameters
  */
-export function removeProp(payload: Record<string, any>, valueToRemove: any): Record<string, any> {
-  return removeProps(payload, [valueToRemove])
-}
+export const removeProps = (payload: Record<string, any>, valuesToRemove: any[]) =>
+  removeProp(payload, valuesToRemove[0], ...valuesToRemove)
