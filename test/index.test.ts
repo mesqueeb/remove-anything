@@ -13,6 +13,20 @@ test('removeProp empty objects', () => {
   expect(removeProp({ a: { b: { c: { d: { e: {} } } }, b2: {} } }, {})).toEqual({})
   expect(removeProp({ a: { b: { c: { d: { e: {}, e2: {} } } }, b2: {} } }, {})).toEqual({})
 })
+test('removeProp empty arrays', () => {
+  expect(removeProp({}, {})).toEqual({})
+  expect(removeProp({ a: [] }, [])).toEqual({})
+  expect(removeProp({ a: { b: { c: [] } } }, [])).toEqual({ a: { b: {} } })
+  expect(removeProp({ a: { b: { c: { d: { e: [] } } } } }, [])).toEqual({
+    a: { b: { c: { d: {} } } },
+  })
+  expect(removeProp({ a: { b: { c: { d: { e: [] } } }, b2: [] } }, [])).toEqual({
+    a: { b: { c: { d: {} } } },
+  })
+  expect(removeProp({ a: { b: { c: { d: { e: [], e2: [] } } }, b2: [] } }, [])).toEqual({
+    a: { b: { c: { d: {} } } },
+  })
+})
 test('removeProp empty objects and undefined', () => {
   expect(removeProps({}, [{}, undefined])).toEqual({})
   expect(removeProps({ a: {} }, [{}, undefined])).toEqual({})
