@@ -2,8 +2,7 @@
 
 // npm i -D rollup rollup-plugin-typescript2 typescript
 import typescript from 'rollup-plugin-typescript2'
-
-const pkg = require('../package.json')
+import pkg from '../package.json'
 
 export default {
   input: 'src/index.ts',
