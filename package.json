@@ -2,7 +2,7 @@
   "name": "remove-anything",
   "sideEffects": false,
   "type": "module",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Remove any prop (eg. `undefined`) from an object",
   "module": "./dist/index.es.js",
   "main": "./dist/index.cjs",
