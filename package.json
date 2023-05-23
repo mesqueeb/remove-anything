@@ -1,6 +1,6 @@
 {
   "name": "remove-anything",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Remove any prop (eg. `undefined`) from an object",
   "type": "module",
   "sideEffects": false,
