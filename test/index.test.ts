@@ -1,5 +1,5 @@
-import { test, expect } from 'vitest'
-import { removeProp, removeProps } from '../src/index'
+import { expect, test } from 'vitest'
+import { removeProp, removeProps } from '../src/index.js'
 
 test('removeProp', () => {
   expect(removeProp({ a: 1, b: undefined }, undefined)).toEqual({ a: 1 })
@@ -36,10 +36,10 @@ test('removeProp empty objects and undefined', () => {
   expect(removeProp({ a: { b: { c: undefined } } }, {}, undefined)).toEqual({})
   expect(removeProp({ a: { b: { c: { d: { e: {} } } } } }, {}, undefined)).toEqual({})
   expect(removeProp({ a: { b: { c: { d: { e: {} } } }, b2: undefined } }, {}, undefined)).toEqual(
-    {}
+    {},
   )
   expect(
-    removeProp({ a: { b: { c: { d: { e: {}, e2: undefined } } }, b2: {} } }, {}, undefined)
+    removeProp({ a: { b: { c: { d: { e: {}, e2: undefined } } }, b2: {} } }, {}, undefined),
   ).toEqual({})
 })
 
@@ -49,9 +49,9 @@ test('removeProps empty objects and undefined', () => {
   expect(removeProps({ a: { b: { c: undefined } } }, [{}, undefined])).toEqual({})
   expect(removeProps({ a: { b: { c: { d: { e: {} } } } } }, [{}, undefined])).toEqual({})
   expect(
-    removeProps({ a: { b: { c: { d: { e: {} } } }, b2: undefined } }, [{}, undefined])
+    removeProps({ a: { b: { c: { d: { e: {} } } }, b2: undefined } }, [{}, undefined]),
   ).toEqual({})
   expect(
-    removeProps({ a: { b: { c: { d: { e: {}, e2: undefined } } }, b2: {} } }, [{}, undefined])
+    removeProps({ a: { b: { c: { d: { e: {}, e2: undefined } } }, b2: {} } }, [{}, undefined]),
   ).toEqual({})
 })

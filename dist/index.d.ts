@@ -1,10 +1,20 @@
 /**
  * Recursively remove props from an object, if the prop's value matches `valueToRemove`
  */
-declare function removeProp(payload: Record<string, any>, valueToRemove: any, ...valuesToRemove: any[]): Record<string, unknown>;
+export declare function removeProp(payload: {
+    [key in string | number | symbol]: unknown;
+}, valueToRemove: unknown, ...valuesToRemove: unknown[]): {
+    [key in string | number | symbol]: unknown;
+};
 /**
  * @deprecated use `removeProp` instead and pass multiple parameters
  */
-declare const removeProps: (payload: Record<string, any>, valuesToRemove: any[]) => Record<string, unknown>;
-
-export { removeProp, removeProps };
+export declare const removeProps: (payload: {
+    [x: string]: unknown;
+    [x: number]: unknown;
+    [x: symbol]: unknown;
+}, valuesToRemove: unknown[]) => {
+    [x: string]: unknown;
+    [x: number]: unknown;
+    [x: symbol]: unknown;
+};
