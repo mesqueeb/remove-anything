@@ -9,7 +9,7 @@ npm i remove-anything
 
 Removes props (eg. undefined) from an object
 
-An optimised way to remove any prop (eg. `undefined`, empty objects, ...) from an object. A small and simple integration.
+An optimised way to remove any prop value (eg. `undefined`, empty objects, ...) from an object. A small and simple integration.
 
 ## Usage
 
