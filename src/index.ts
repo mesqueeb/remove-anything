@@ -1,8 +1,6 @@
 import { isEmptyArray, isEmptyObject, isPlainObject } from 'is-what'
 
-/**
- * Recursively remove props from an object, if the prop's value matches `valueToRemove`
- */
+/** Recursively remove props from an object, if the prop's value matches `valueToRemove` */
 export function removeProp(
   payload: { [key in string | number | symbol]: unknown },
   valueToRemove: unknown,
@@ -32,10 +30,10 @@ export function removeProp(
   )
 }
 
-/**
- * @deprecated use `removeProp` instead and pass multiple parameters
- */
-export const removeProps = (
+/** @deprecated Use `removeProp` instead and pass multiple parameters */
+export function removeProps(
   payload: { [key in string | number | symbol]: unknown },
   valuesToRemove: unknown[],
-) => removeProp(payload, valuesToRemove[0], ...valuesToRemove)
+): { [key in string | number | symbol]: unknown } {
+  return removeProp(payload, valuesToRemove[0], ...valuesToRemove)
+}
