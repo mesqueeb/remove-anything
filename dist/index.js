@@ -1,7 +1,5 @@
 import { isEmptyArray, isEmptyObject, isPlainObject } from 'is-what';
-/**
- * Recursively remove props from an object, if the prop's value matches `valueToRemove`
- */
+/** Recursively remove props from an object, if the prop's value matches `valueToRemove` */
 export function removeProp(payload, valueToRemove, ...valuesToRemove) {
     if (!isPlainObject(payload))
         return payload;
@@ -24,7 +22,7 @@ export function removeProp(payload, valueToRemove, ...valuesToRemove) {
         return carry;
     }, {});
 }
-/**
- * @deprecated use `removeProp` instead and pass multiple parameters
- */
-export const removeProps = (payload, valuesToRemove) => removeProp(payload, valuesToRemove[0], ...valuesToRemove);
+/** @deprecated Use `removeProp` instead and pass multiple parameters */
+export function removeProps(payload, valuesToRemove) {
+    return removeProp(payload, valuesToRemove[0], ...valuesToRemove);
+}
