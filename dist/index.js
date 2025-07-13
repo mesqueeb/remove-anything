@@ -22,6 +22,43 @@ export function removeProp(payload, valueToRemove, ...valuesToRemove) {
         return carry;
     }, {});
 }
+/**
+ * Recursively remove props from an object, if the prop's value matches `valueToRemove`
+ *
+ * This function mutates the passed object in place and returns void.
+ */
+export function removePropInPlace(payload, valueToRemove, ...valuesToRemove) {
+    if (!isPlainObject(payload))
+        return;
+    const remove = [valueToRemove, ...valuesToRemove];
+    const removeEmptyObjects = !!remove.find((val) => isEmptyObject(val));
+    const removeEmptyArrays = !!remove.find((val) => isEmptyArray(val));
+    Object.entries(payload).forEach(([key, value]) => {
+        if (removeEmptyObjects && isEmptyObject(value)) {
+            delete payload[key];
+            return;
+        }
+        if (removeEmptyArrays && isEmptyArray(value)) {
+            delete payload[key];
+            return;
+        }
+        if (remove.includes(value)) {
+            delete payload[key];
+            return;
+        }
+        if (value && isPlainObject(value)) {
+            removePropInPlace(value, remove[0], ...remove.slice(1));
+        }
+        if (removeEmptyObjects && isEmptyObject(value)) {
+            delete payload[key];
+            return;
+        }
+        if (removeEmptyArrays && isEmptyArray(value)) {
+            delete payload[key];
+            return;
+        }
+    });
+}
 /** @deprecated Use `removeProp` instead and pass multiple parameters */
 export function removeProps(payload, valuesToRemove) {
     return removeProp(payload, valuesToRemove[0], ...valuesToRemove);
