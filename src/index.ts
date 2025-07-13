@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-dynamic-delete */
 import { isEmptyArray, isEmptyObject, isPlainObject } from 'is-what'
 
 /** Recursively remove props from an object, if the prop's value matches `valueToRemove` */
@@ -19,6 +20,7 @@ export function removeProp(
       if (removeEmptyArrays && isEmptyArray(value)) return carry
       if (remove.includes(value)) return carry
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const newVal = removeProp(value as any, remove[0], ...remove.slice(1))
       if (removeEmptyObjects && isEmptyObject(newVal)) return carry
       if (removeEmptyArrays && isEmptyArray(newVal)) return carry
@@ -62,7 +64,7 @@ export function removePropInPlace(
     }
 
     if (value && isPlainObject(value)) {
-      removePropInPlace(value as any, remove[0], ...remove.slice(1))
+      removePropInPlace(value, remove[0], ...remove.slice(1))
     }
     if (removeEmptyObjects && isEmptyObject(value)) {
       delete payload[key]
