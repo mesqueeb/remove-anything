@@ -49,6 +49,17 @@ removeProps(payload, {}, [])
 // { a: 1, b: undefined }
 ```
 
+### In-Place Mutation
+
+Use `removePropInPlace` to mutate the original object instead of creating a new one:
+
+```js
+const payload = { a: 1, b: undefined, c: {} }
+removePropInPlace(payload, undefined, {})
+
+// payload is now mutated to: { a: 1 }
+```
+
 ## Meet the family (more tiny utils with TS support)
 
 - [is-what 🙉](https://github.com/mesqueeb/is-what)
